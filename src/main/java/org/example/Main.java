@@ -2,11 +2,14 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(stringCompression("aabaaac"));
-        System.out.println(stringDecompression("a2b1a3c1"));
+        System.out.println("aaaaaaaaaaabaaaccccccccccccccc  - input");
+        System.out.println(stringCompression("aaaaaaaaaaabaaaccccccccccccccc"));
+        System.out.println(stringDecompression("a11b1a3c15"));
     }
 
     private static String stringCompression(String stringToCompress) {
+//         Also I could use StringBuilder and code would have better readability. But I think this solution works faster.
+//         Both ways are Ok I think.
         // If string is empty returning empty string.
         int stringLength = stringToCompress.length();
         if (stringLength == 0) {
@@ -37,23 +40,29 @@ public class Main {
         return result;
     }
 
-    private static String stringDecompression (String stringToDecompress){
+    private static String stringDecompression(String stringToDecompress) {
         // If string is empty returning empty string.
         int stringLength = stringToDecompress.length();
         if (stringLength == 0) {
             return "";
         }
-
+        // Using string builder for better readability, making substrings for numbers is bad idea in this case.
+        StringBuilder tempNumber = new StringBuilder();
         String tempChar = "";
-        int tempCount = 0;
         String result = "";
-        for (int i = 0; i < stringLength - 1; i+=2) {
+        for (int i = 0; i < stringLength - 1; ) {
             tempChar = String.valueOf(stringToDecompress.charAt(i));
-            tempCount = Integer.parseInt(String.valueOf(stringToDecompress.charAt(i+1)));
-            result = result.concat(tempChar.repeat(tempCount));
+            i++;
+            // Building new number for current character.
+            tempNumber.delete(0, tempNumber.length());
+            // Running while cycle until string end or finding next character.
+            while (i < stringLength && Character.isDigit(stringToDecompress.charAt(i))) {
+                tempNumber.append(stringToDecompress.charAt(i));
+                i++;
+            }
+            // Updating result.
+            result = result.concat(tempChar.repeat(Integer.parseInt(tempNumber.toString())));
         }
-
         return result;
     }
-
 }

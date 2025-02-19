@@ -2,13 +2,16 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("aaaaaaaaaaabaaaccccccccccccccc  - input");
-        System.out.println(stringCompression("aaaaaaaaaaabaaaccccccccccccccc"));
-        System.out.println(stringDecompression("a11b1a3c15"));
+        String input = "aaaaaaaaaaaaaaabbbbbccccccccccc";
+        String compressedString = stringCompression(input);
+        String decompessedString = stringDecompression(compressedString);
+        System.out.println(input + "   - input");
+        System.out.println(compressedString);
+        System.out.println(decompessedString);
     }
 
     private static String stringCompression(String stringToCompress) {
-//         Also I could use StringBuilder and code would have better readability. But I think this solution works faster.
+//         I could also use StringBuilder for better readability, but I think this solution is faster.
 //         Both ways are Ok I think.
         // If string is empty returning empty string.
         int stringLength = stringToCompress.length();

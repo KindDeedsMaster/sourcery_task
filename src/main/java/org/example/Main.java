@@ -1,19 +1,38 @@
 package org.example;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        System.out.println(stringCompression("aabaaac"));
+    }
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
-
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+    public static String stringCompression(String stringToCompress) {
+        // If string is empty returning empty string.
+        int stringLength = stringToCompress.length();
+        if (stringLength == 0) {
+            return "";
         }
+        // If string contains only one character no need to run cycle or create variables, just returning result.
+        if (stringLength == 1) {
+            return stringToCompress.concat("1");
+        }
+
+        int count = 1;   // Variable for counting repeating characters.
+        String result = "";
+        for (int i = 0; i < stringLength - 1; i++) {
+            if (stringToCompress.charAt(i) == stringToCompress.charAt(i + 1)) {
+                // If next character repeats, increasing count.
+                count++;
+            } else {
+                // If next character differ, updating result and counting for next character begins.
+                result = result.concat(stringToCompress.charAt(i) + String.valueOf(count));
+                count = 1;
+            }
+
+            if (stringLength == (i + 2)) {
+                // If it's last iteration updating result.
+                result = result.concat(stringToCompress.charAt(i + 1) + String.valueOf(count));
+            }
+        }
+        return result;
     }
 }
